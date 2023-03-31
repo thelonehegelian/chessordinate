@@ -1,27 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import { BoardMap, SquareProps } from '../types';
-
-
-export const generateBoardMap = (): BoardMap => {
-  const boardMap: BoardMap = {};
-  const files = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h'];
-
-  for (let i = 0; i < 8; i++) {
-    for (let j = 0; j < 8; j++) {
-      const key = `${i}-${j}`;
-      const value = `${files[j]}${8 - i}`;
-      boardMap[key] = value;
-    }
-  }
-
-  return boardMap;
-};
-
-const boardMap = generateBoardMap();
-
-
-
+import { generateBoardMap } from '../constants';
 
 const Board = styled.div`
   display: grid;
@@ -52,6 +32,7 @@ const Button = styled.button`
   font-weight: bold;
   `;
 
+const boardMap = generateBoardMap();
 const SquareComponent: React.FC<SquareProps> = (props) => {
   const { id, onClick, isDark } = props;
 

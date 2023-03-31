@@ -1,8 +1,10 @@
 import React from 'react';
 import styled from 'styled-components';
+import { generateBoardMap } from '../constants';
 
 import { BoardMap } from '../types';
-import {generateBoardMap} from './EmptyChessBoard'
+// import {generateBoardMap} from './EmptyChessBoard'
+
 const board = generateBoardMap();
 // pick a random square from the boardMap
 const getRandomSquare = (boardMap: BoardMap): string => {
@@ -13,7 +15,7 @@ const getRandomSquare = (boardMap: BoardMap): string => {
 
 export default function CoordinateDisplay() {
   const [square, setSquare] = React.useState(getRandomSquare(board));
-  
+
 
   return (
     <div>
