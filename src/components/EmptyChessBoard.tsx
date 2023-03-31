@@ -1,16 +1,9 @@
 import React from 'react';
 import styled from 'styled-components';
+import { BoardMap, SquareProps } from '../types';
 
-interface SquareProps {
-  isDark: boolean;
-  id: string;
-  onClick: (id: string) => void;
-}
 
-// BoardMap is a Record type that maps a string to a string (e.g. "0-0": "a8")
-type BoardMap = Record<string, string>;
-
-const generateBoardMap = (): BoardMap => {
+export const generateBoardMap = (): BoardMap => {
   const boardMap: BoardMap = {};
   const files = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h'];
 
@@ -26,7 +19,6 @@ const generateBoardMap = (): BoardMap => {
 };
 
 const boardMap = generateBoardMap();
-console.log(boardMap);
 
 
 
@@ -49,18 +41,45 @@ const Square = styled.div<SquareProps>`
   }
 `;
 
+const Button = styled.button`
+  width: 100px;
+  height: 50px;
+  background-color: #8a6d3b;
+  color: #f4ce7b;
+  border: 1px solid #f4ce7b;
+  border-radius: 5px;
+  font-size: 1.2rem;
+  font-weight: bold;
+  `;
+
 const SquareComponent: React.FC<SquareProps> = (props) => {
   const { id, onClick, isDark } = props;
 
   return <Square id={id} isDark={isDark} onClick={() => onClick(id)} />;
 };
 
+const getRandomSquare = (boardMap: BoardMap): string => {
+  const keys = Object.keys(boardMap);
+  const randomIndex = Math.floor(Math.random() * keys.length);
+  return keys[randomIndex];
+}
+
 const EmptyChessBoard: React.FC = () => {
   const squares = [];
+  const [randomSquare, setRandomSquare] = React.useState(getRandomSquare(boardMap));
 
   const handleSquareClick = (id: string) => {
     console.log("Square clicked:", boardMap[id]);
+    if (id === randomSquare) {
+      console.log("Correct!");
+      setRandomSquare(getRandomSquare(boardMap));
+    }
   };
+
+  const handleButton = () => {
+    setRandomSquare(getRandomSquare(boardMap));
+    console.log("Random square:", boardMap[randomSquare]);
+  }
 
   for (let i = 0; i < 8; i++) {
     for (let j = 0; j < 8; j++) {
@@ -70,7 +89,7 @@ const EmptyChessBoard: React.FC = () => {
     }
   }
 
-  return <Board>{squares}</Board>;
+  return <><Board>{squares}{boardMap[randomSquare]}</Board><Button onClick={handleButton}>New Coordinate</Button></>;
 };
 
 export default EmptyChessBoard;
