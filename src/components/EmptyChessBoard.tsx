@@ -81,6 +81,25 @@ const EmptyChessBoard: React.FC = () => {
     console.log("Random square:", boardMap[randomSquare]);
   }
 
+  // randomize the squares after every 5 seconds
+  React.useEffect(() => {
+    const interval = setInterval(() => {
+      setRandomSquare(getRandomSquare(boardMap));
+    }, 10000);
+    return () => clearInterval(interval);
+  }, []);
+  
+  // counter display
+  const [counter, setCounter] = React.useState(0);
+
+  React.useEffect(() => {
+    const interval = setInterval(() => {
+      setCounter(counter - 1);
+    }, 1000);
+    return () => clearInterval(interval);
+  }, [counter]);
+
+
   for (let i = 0; i < 8; i++) {
     for (let j = 0; j < 8; j++) {
       const isDark = (i + j) % 2 === 1;
@@ -89,7 +108,7 @@ const EmptyChessBoard: React.FC = () => {
     }
   }
 
-  return <><Board>{squares}{boardMap[randomSquare]}</Board><Button onClick={handleButton}>New Coordinate</Button></>;
+  return <><Board>{squares}{boardMap[randomSquare]}</Board><div>{counter}</div><Button onClick={handleButton}>New Coordinate</Button></>;
 };
 
 export default EmptyChessBoard;
