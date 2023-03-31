@@ -48,12 +48,29 @@ const getRandomSquare = (boardMap: BoardMap): string => {
 const EmptyChessBoard: React.FC = () => {
   const squares = [];
   const [randomSquare, setRandomSquare] = React.useState(getRandomSquare(boardMap));
+  const [counter, setCounter] = React.useState(0);
+    // counter display
+    React.useEffect(() => {
+      const interval = setInterval(() => {
+        setCounter(counter - 1);
+        // if counter is 0, then set the random square
+        if (counter === 0) {
+          setRandomSquare(getRandomSquare(boardMap));
+          setCounter(10);
+        }
+  
+      }, 1000);
+      return () => clearInterval(interval);
+    }, [counter]);
+  
+
 
   const handleSquareClick = (id: string) => {
     console.log("Square clicked:", boardMap[id]);
     if (id === randomSquare) {
       console.log("Correct!");
       setRandomSquare(getRandomSquare(boardMap));
+      setCounter(10);
     }
   };
 
@@ -61,25 +78,6 @@ const EmptyChessBoard: React.FC = () => {
     setRandomSquare(getRandomSquare(boardMap));
     console.log("Random square:", boardMap[randomSquare]);
   }
-
-  // randomize the squares after every 5 seconds
-  React.useEffect(() => {
-    const interval = setInterval(() => {
-      setRandomSquare(getRandomSquare(boardMap));
-    }, 10000);
-    return () => clearInterval(interval);
-  }, []);
-  
-  // counter display
-  const [counter, setCounter] = React.useState(0);
-
-  React.useEffect(() => {
-    const interval = setInterval(() => {
-      setCounter(counter - 1);
-    }, 1000);
-    return () => clearInterval(interval);
-  }, [counter]);
-
 
   for (let i = 0; i < 8; i++) {
     for (let j = 0; j < 8; j++) {
