@@ -74,10 +74,6 @@ const EmptyChessBoard: React.FC = () => {
     }
   };
 
-  const handleButton = () => {
-    setRandomSquare(getRandomSquare(boardMap));
-    console.log("Random square:", boardMap[randomSquare]);
-  }
 
   for (let i = 0; i < 8; i++) {
     for (let j = 0; j < 8; j++) {
@@ -87,7 +83,7 @@ const EmptyChessBoard: React.FC = () => {
     }
   }
 
-  return <><Board>{squares}{boardMap[randomSquare]}</Board><div>{counter}</div><Button onClick={handleButton}>New Coordinate</Button></>;
+  return <><Board>{squares}{boardMap[randomSquare]}</Board><div>{counter}</div></>;
 };
 
 export default EmptyChessBoard;
