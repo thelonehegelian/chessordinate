@@ -90,22 +90,33 @@ const CoordinateDisplay = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  
 `;
 
-// CounterDisplay component white bold font full caps height is the same as the Button component
-
 const CounterDisplay = styled.div`
-  width: 100px;
+  width: 120px;
   height: 40px;
   // background-color: #f4ce7b;
   border-radius: 5px;
   color: white;
-  font-size: 1.5rem;
+  font-size: 1rem;
   font-weight: bold;
-  text-align: center;
-  padding-top: 10px;
   text-transform: uppercase;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`;
+
+const ScoreDisplay = styled.div`
+  width: 100px;
+  height: 40px;
+  // background-color: #f4ce7b;
+  color: white;
+  font-size: 1rem;
+  font-weight: bold;
+  text-transform: uppercase;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 `;
 
 
@@ -130,6 +141,7 @@ const EmptyChessBoard: React.FC = () => {
   const [counter, setCounter] = React.useState(10);
   const [isOn, setIsOn] = React.useState(false);
   const [answer, setAnswer] = React.useState(false);
+  const [score, setScore] = React.useState(0);
   
   // counter display
   React.useEffect(() => {
@@ -142,6 +154,7 @@ const EmptyChessBoard: React.FC = () => {
       if (counter === 0) {
         setRandomSquare(getRandomSquare(boardMap));
         setCounter(10);
+        setScore(score - 1);
       }
       return () => clearTimeout(timer);
     }
@@ -158,9 +171,11 @@ const EmptyChessBoard: React.FC = () => {
       setAnswer(true);
       setRandomSquare(getRandomSquare(boardMap));
       setCounter(10);
+      setScore(score + 1);
     }
-    else {
+    else { 
       setAnswer(false);
+      setScore(score - 1);
     }
   };
 
@@ -199,7 +214,7 @@ const EmptyChessBoard: React.FC = () => {
       <Board>
         {squares}
       </Board>
-      <Bar isAnswerCorrect = {answer}><CounterDisplay>{counter}</CounterDisplay></Bar>
+      <Bar isAnswerCorrect = {answer}><CounterDisplay>Time: {counter}</CounterDisplay><ScoreDisplay>Score: {score}</ScoreDisplay></Bar>
     </>
   );
 };
