@@ -1,3 +1,10 @@
+/**
+ * @todo add scoring system and display
+ * @todo fix time increase and decrease buttons
+ * @todo on correct answer flash the square green
+ * @todo on incorrect answer flash the square red
+ */
+
 import React from 'react';
 import styled from 'styled-components';
 import { BoardMap, SquareProps } from '../types';
@@ -120,6 +127,7 @@ const EmptyChessBoard: React.FC = () => {
   );
   const [counter, setCounter] = React.useState(10);
   const [isOn, setIsOn] = React.useState(false);
+  const [answer, setAnswer] = React.useState(false);
   
   // counter display
   React.useEffect(() => {
@@ -146,6 +154,10 @@ const EmptyChessBoard: React.FC = () => {
     console.log('Square clicked:', boardMap[id]);
     if (id === randomSquare) {
       console.log('Correct!');
+      // flash the square green
+      setAnswer(true);
+      
+
       setRandomSquare(getRandomSquare(boardMap));
       setCounter(10);
     }
