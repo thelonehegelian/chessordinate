@@ -139,14 +139,14 @@ const EmptyChessBoard: React.FC = () => {
     getRandomSquare(boardMap)
   );
   const [counter, setCounter] = React.useState(10);
-  const [isOn, setIsOn] = React.useState(false);
+  const [isGameOn, setIsGameOn] = React.useState(false);
   const [answer, setAnswer] = React.useState(false);
   const [score, setScore] = React.useState(0);
   
   // counter display
   React.useEffect(() => {
     // after each 1 second, decrease counter by 1
-    if (isOn) {
+    if (isGameOn) {
       const timer = setTimeout(() => {
         setCounter(counter - 1);
       }, 1000);
@@ -159,11 +159,11 @@ const EmptyChessBoard: React.FC = () => {
       return () => clearTimeout(timer);
     }
 
-    if (!isOn) {
+    if (!isGameOn) {
       setCounter(10);
     }
 
-  }, [counter, isOn]);
+  }, [counter, isGameOn]);
 
   const handleSquareClick = (id: string) => {
     console.log('Square clicked:', boardMap[id]);
@@ -173,14 +173,15 @@ const EmptyChessBoard: React.FC = () => {
       setCounter(10);
       setScore(score + 1);
     }
-    else { 
+    else if (isGameOn && id !== randomSquare){ 
       setAnswer(false);
       setScore(score - 1);
     }
   };
 
   const handleButtonClick = (txt) => {
-    txt === 'Start' ? setIsOn(true) : setIsOn(false);
+    txt === 'Start' ? setIsGameOn(true) : setIsGameOn(false);
+    setScore(0);
     // txt === '+' ? setCounter(counter + 10) : setCounter(counter);
     // txt === '-' ? setCounter(counter - 10) : setCounter(counter);
   };
@@ -203,12 +204,12 @@ const EmptyChessBoard: React.FC = () => {
   return (
     <>
     <Bar isAnswerCorrect = {answer}>
-      <StartStop onClick={() => handleButtonClick(isOn ? 'Stop' : 'Start')}>
-        {isOn ? 'Stop' : 'Start'}
+      <StartStop onClick={() => handleButtonClick(isGameOn ? 'Stop' : 'Start')}>
+        {isGameOn ? 'Stop' : 'Start'}
       </StartStop>{' '}
       <CoordinateDisplay>{boardMap[randomSquare]} </CoordinateDisplay>
-      <IncreaseDecreaseTime onClick={() => handleButtonClick('+')}>+</IncreaseDecreaseTime>{' '}
-      <IncreaseDecreaseTime onClick={() => handleButtonClick('-')}>-</IncreaseDecreaseTime>{' '}
+      {/* <IncreaseDecreaseTime onClick={() => handleButtonClick('+')}>+</IncreaseDecreaseTime>{' '}
+      <IncreaseDecreaseTime onClick={() => handleButtonClick('-')}>-</IncreaseDecreaseTime>{' '} */}
      
       </Bar>
       <Board>
