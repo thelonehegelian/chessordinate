@@ -3,7 +3,6 @@ import styled from 'styled-components';
 import { BoardMap, SquareProps } from '../types';
 import { generateBoardMap } from '../constants';
 
-
 const Board = styled.div`
   display: grid;
   grid-template-columns: repeat(8, 1fr);
@@ -31,7 +30,7 @@ const Button = styled.button`
   border-radius: 5px;
   font-size: 1.2rem;
   font-weight: bold;
-  `;
+`;
 const Bar = styled.div`
   width: 400px;
   height: 50px;
@@ -40,16 +39,44 @@ const Bar = styled.div`
   justify-content: space-around;
   align-items: center;
 `;
-const StartStop = styled.div`
-width: 100px;
-height: 50px;
-background-color: #8a6d3b;
-color: #f4ce7b;
-border: 1px solid #f4ce7b;
-border-radius: 5px;
-font-size: 1.2rem;
-font-weight: bold;
+const StartStop = styled.button`
+  width: 100px;
+  height: 40px;
+  background-color: #8a6d3b;
+  color: #f4ce7b;
+  border: 1px solid #f4ce7b;
+  border-radius: 5px;
+  font-size: 1.2rem;
+  font-weight: bold;
 `;
+
+const IncreaseDecreaseTime = styled.button`
+  width: 100px;
+  height: 40px;
+  background-color: #8a6d3b;
+  color: #f4ce7b;
+  border: 1px solid #f4ce7b;
+  border-radius: 5px;
+  font-size: 1.2rem;
+  font-weight: bold;
+`;
+
+// coordinateDisplay component white bold font full caps height is the same as the Button component
+const CoordinateDisplay = styled.div`
+  width: 100px;
+  height: 40px;
+  // background-color: #f4ce7b;
+  border-radius: 5px;
+  color: white;
+  font-size: 1.5rem;
+  font-weight: bold;
+  text-align: center;
+  padding-top: 10px;
+  text-transform: uppercase;
+
+
+`;
+
 
 const boardMap = generateBoardMap();
 const SquareComponent: React.FC<SquareProps> = (props) => {
@@ -62,59 +89,84 @@ const getRandomSquare = (boardMap: BoardMap): string => {
   const keys = Object.keys(boardMap);
   const randomIndex = Math.floor(Math.random() * keys.length);
   return keys[randomIndex];
-}
+};
 
 const EmptyChessBoard: React.FC = () => {
   const squares = [];
-  const [randomSquare, setRandomSquare] = React.useState(getRandomSquare(boardMap));
+  const [randomSquare, setRandomSquare] = React.useState(
+    getRandomSquare(boardMap)
+  );
   const [counter, setCounter] = React.useState(10);
   const [isOn, setIsOn] = React.useState(false);
-    // counter display
+  
+  // counter display
   React.useEffect(() => {
     // after each 1 second, decrease counter by 1
-   if (isOn) {
-    const timer = setTimeout(() => {
-      setCounter(counter - 1);
-    }, 1000);
-  //  when the counter is 0, update the random square
-    if (counter === 0) {
-      setRandomSquare(getRandomSquare(boardMap));
+    if (isOn) {
+      const timer = setTimeout(() => {
+        setCounter(counter - 1);
+      }, 1000);
+      //  when the counter is 0, update the random square
+      if (counter === 0) {
+        setRandomSquare(getRandomSquare(boardMap));
+        setCounter(10);
+      }
+      return () => clearTimeout(timer);
+    }
+
+    if (!isOn) {
       setCounter(10);
     }
-    return () => clearTimeout(timer);
-   }
-
-      
 
   }, [counter, isOn]);
 
-
   const handleSquareClick = (id: string) => {
-    console.log("Square clicked:", boardMap[id]);
+    console.log('Square clicked:', boardMap[id]);
     if (id === randomSquare) {
-      console.log("Correct!");
+      console.log('Correct!');
       setRandomSquare(getRandomSquare(boardMap));
       setCounter(10);
     }
   };
 
   const handleButtonClick = (txt) => {
-    txt === 'Start'? setIsOn(true) : setIsOn(false);
-     console.log("Button clicked!", isOn);
-  }
-
+    txt === 'Start' ? setIsOn(true) : setIsOn(false);
+    txt === '+' ? setCounter(counter + 10) : setCounter(counter);
+    txt === '-' ? setCounter(counter - 10) : setCounter(counter);
+  };
 
   for (let i = 0; i < 8; i++) {
     for (let j = 0; j < 8; j++) {
       const isDark = (i + j) % 2 === 1;
       const id = `${i}-${j}`;
-      squares.push(<SquareComponent key={id} id={id} isDark={isDark} onClick={handleSquareClick} />);
+      squares.push(
+        <SquareComponent
+          key={id}
+          id={id}
+          isDark={isDark}
+          onClick={handleSquareClick}
+        />
+      );
     }
   }
 
-  return <><StartStop onClick={()=> handleButtonClick(isOn ? "Pause" : "Start")}>{isOn ? "Pause" : "Start"}</StartStop> <Board>{squares}{boardMap[randomSquare]}</Board><div>{counter}</div></>;
+  return (
+    <>
+    <Bar>
+      <StartStop onClick={() => handleButtonClick(isOn ? 'Stop' : 'Start')}>
+        {isOn ? 'Stop' : 'Start'}
+      </StartStop>{' '}
+      <CoordinateDisplay>{boardMap[randomSquare]} </CoordinateDisplay>
+      <IncreaseDecreaseTime onClick={() => handleButtonClick('+')}>+</IncreaseDecreaseTime>{' '}
+      <IncreaseDecreaseTime onClick={() => handleButtonClick('-')}>-</IncreaseDecreaseTime>{' '}
+     
+      </Bar>
+      <Board>
+        {squares}
+      </Board>
+      <div>{counter}</div>
+    </>
+  );
 };
 
 export default EmptyChessBoard;
-
-

@@ -13,13 +13,26 @@ const getRandomSquare = (boardMap: BoardMap): string => {
   return keys[randomIndex];
 }
 
-export default function CoordinateDisplay() {
-  const [square, setSquare] = React.useState(getRandomSquare(board));
+const Coordinates = styled.div`
+  width: 400px;
+  height: 400px;
+  background-color: rgba(0, 0, 0, 0.5);
+  position: absolute;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 2rem;
+  font-weight: bold;
+  color: white;
+`;
+
+// export default function CoordinateDisplay() {
+//   const [square, setSquare] = React.useState(getRandomSquare(board));
 
 
-  return (
-    <div>
-      <h1>{board[square]}</h1>
-    </div>
-  );
-}
+//   return (
+//     <div>
+//       <h1><Coordinates>{board[square]}</Coordinates></h1>
+//     </div>
+//   );
+// }
