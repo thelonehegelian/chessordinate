@@ -46,7 +46,7 @@ const Bar = styled.div<BarProps>`
   display: flex;
   justify-content: space-around;
   align-items: center;
-  background-color: ${props => (props.isAnswerCorrect ? 'green' : 'red')};
+  background-color: ${props => (props.isAnswerCorrect ? '#56AD31' : '#AD3131')};
 `;
 const StartStop = styled.button`
   width: 100px;
