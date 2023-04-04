@@ -48,10 +48,13 @@ const StartStop = styled.button`
   border-radius: 5px;
   font-size: 1.2rem;
   font-weight: bold;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 `;
 
 const IncreaseDecreaseTime = styled.button`
-  width: 100px;
+  width: 50px;
   height: 40px;
   background-color: #8a6d3b;
   color: #f4ce7b;
@@ -59,6 +62,10 @@ const IncreaseDecreaseTime = styled.button`
   border-radius: 5px;
   font-size: 1.2rem;
   font-weight: bold;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
 `;
 
 // coordinateDisplay component white bold font full caps height is the same as the Button component
@@ -70,11 +77,26 @@ const CoordinateDisplay = styled.div`
   color: white;
   font-size: 1.5rem;
   font-weight: bold;
+  text-transform: uppercase;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  
+`;
+
+// CounterDisplay component white bold font full caps height is the same as the Button component
+
+const CounterDisplay = styled.div`
+  width: 100px;
+  height: 40px;
+  // background-color: #f4ce7b;
+  border-radius: 5px;
+  color: white;
+  font-size: 1.5rem;
+  font-weight: bold;
   text-align: center;
   padding-top: 10px;
   text-transform: uppercase;
-
-
 `;
 
 
@@ -131,8 +153,8 @@ const EmptyChessBoard: React.FC = () => {
 
   const handleButtonClick = (txt) => {
     txt === 'Start' ? setIsOn(true) : setIsOn(false);
-    txt === '+' ? setCounter(counter + 10) : setCounter(counter);
-    txt === '-' ? setCounter(counter - 10) : setCounter(counter);
+    // txt === '+' ? setCounter(counter + 10) : setCounter(counter);
+    // txt === '-' ? setCounter(counter - 10) : setCounter(counter);
   };
 
   for (let i = 0; i < 8; i++) {
@@ -164,7 +186,7 @@ const EmptyChessBoard: React.FC = () => {
       <Board>
         {squares}
       </Board>
-      <div>{counter}</div>
+      <Bar><CounterDisplay>{counter}</CounterDisplay></Bar>
     </>
   );
 };
