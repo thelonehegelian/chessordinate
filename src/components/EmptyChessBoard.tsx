@@ -1,9 +1,9 @@
 /**
- * @todo add scoring system and display
- * @todo fix time increase and decrease buttons
- * @todo on correct answer flash the square green
- * @todo on incorrect answer flash the square red
- */
+ * @todo add time increase and decrease buttons
+ * Advance + Optional
+ * @todo flash background green if correct, red if incorrect
+
+  */
 
 import React from 'react';
 import styled from 'styled-components';
