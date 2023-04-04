@@ -7,8 +7,9 @@
 
 import React from 'react';
 import styled from 'styled-components';
-import { BoardMap, SquareProps } from '../types';
+import { BoardMap, SquareProps, BarProps} from '../types';
 import { generateBoardMap } from '../constants';
+
 
 const Board = styled.div`
   display: grid;
@@ -38,13 +39,14 @@ const Button = styled.button`
   font-size: 1.2rem;
   font-weight: bold;
 `;
-const Bar = styled.div`
+const Bar = styled.div<BarProps>`
   width: 400px;
   height: 50px;
   background-color: #8a6d3b;
   display: flex;
   justify-content: space-around;
   align-items: center;
+  background-color: ${props => (props.isAnswerCorrect ? 'green' : 'red')};
 `;
 const StartStop = styled.button`
   width: 100px;
@@ -153,13 +155,12 @@ const EmptyChessBoard: React.FC = () => {
   const handleSquareClick = (id: string) => {
     console.log('Square clicked:', boardMap[id]);
     if (id === randomSquare) {
-      console.log('Correct!');
-      // flash the square green
       setAnswer(true);
-      
-
       setRandomSquare(getRandomSquare(boardMap));
       setCounter(10);
+    }
+    else {
+      setAnswer(false);
     }
   };
 
@@ -186,7 +187,7 @@ const EmptyChessBoard: React.FC = () => {
 
   return (
     <>
-    <Bar>
+    <Bar isAnswerCorrect = {answer}>
       <StartStop onClick={() => handleButtonClick(isOn ? 'Stop' : 'Start')}>
         {isOn ? 'Stop' : 'Start'}
       </StartStop>{' '}
@@ -198,7 +199,7 @@ const EmptyChessBoard: React.FC = () => {
       <Board>
         {squares}
       </Board>
-      <Bar><CounterDisplay>{counter}</CounterDisplay></Bar>
+      <Bar isAnswerCorrect = {answer}><CounterDisplay>{counter}</CounterDisplay></Bar>
     </>
   );
 };
