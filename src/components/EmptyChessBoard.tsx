@@ -2,6 +2,9 @@
  * @todo add time increase and decrease buttons
  * Advance + Optional
  * @todo flash background green if correct, red if incorrect
+ * @todo display target coordinate on all four sides of the board
+ * @todo flash the coordinates when clicked
+ * @todo flash the coordinates when the timer runs out
 
   */
 
