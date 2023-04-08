@@ -1,6 +1,5 @@
 import './App.css'
 import EmptyChessBoard from './components/EmptyChessBoard'
-import SettingsPanel from './components/SettingsPanel'
 
 
 function App() {
@@ -12,4 +11,4 @@ function App() {
   )
 }
 
-export default App
+export default App;
