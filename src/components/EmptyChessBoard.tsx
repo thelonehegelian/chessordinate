@@ -139,7 +139,7 @@ const getRandomSquare = (boardMap: BoardMap): string => {
 };
 
 const EmptyChessBoard: React.FC = () => {
-  const squares = [];
+  const squares: JSX.Element[] = [];
   const [randomSquare, setRandomSquare] = React.useState(
     getRandomSquare(boardMap)
   );
