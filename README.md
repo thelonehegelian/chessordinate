@@ -10,10 +10,10 @@ You can try out Chessordinate by visiting [https://chessordinate.onrender.com](h
 
 **TODO:**
 
-- **Improve UI:** Enhance the user interface to make it more user-friendly and visually appealing.
-- **Add Notification for Square Clicked:** Implement notifications or feedback to inform users when they click on a square.
-- **Allow User to Change Time:** Provide options for users to adjust the time constraints to match their preferred pace.
-- **Speed Up/Slow Down:** Allow users to control the speed of the training exercises to match their skill level and learning curve.
-- **Add Skill Levels:** Incorporate different skill levels or difficulty settings to cater to a broader range of users with varying chessboard expertise.
+- [ ] **Improve UI:** Enhance the user interface to make it more user-friendly and visually appealing.
+- [ ] **Add Notification for Square Clicked:** Implement notifications or feedback to inform users when they click on a square.
+- [ ] **Allow User to Change Time:** Provide options for users to adjust the time constraints to match their preferred pace.
+- [ ] **Speed Up/Slow Down:** Allow users to control the speed of the training exercises to match their skill level and learning curve.
+- [ ] **Add Skill Levels:** Incorporate different skill levels or difficulty settings to cater to a broader range of users with varying chessboard expertise.
 
 Chessordinate aims to be a practical tool for those looking to sharpen their chess coordinate knowledge in a straightforward and customizable manner.
